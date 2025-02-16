@@ -31,15 +31,35 @@ function fetchEmployees() {
 
 // TODO
 // add event listener to submit button
+const submit =document.getElementById('submitBtn');
+submit.addEventListener('click',createEmployee);
 
 // TODO
 // add event listener to delete button
+const deleteBtn =document.getElementById('dataTable');
+deleteBtn.addEventListener('click',(event)=> 
+{
+  if(event.target.classList.contains('btn-sm')){
+    deleteEmployee();
+  }
+});
 
 // TODO
 function createEmployee (){
   // get data from input field
   // send data to BE
   // call fetchEmployees
+  event.preventDefault();
+  const id = document.getElementById('id').value;
+  const name = document.getElementById('name').value;
+  fetch('http://localhost:3000/api/v1/employee',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify({id,name})
+  }).then(()=> fetchEmployees())
+  .catch((error)=>console.error(error))
 }
 
 // TODO
@@ -47,6 +67,13 @@ function deleteEmployee (){
   // get id
   // send id to BE
   // call fetchEmployees
+  const cellDelete = event.target.closet('td');
+  const row = cellDelete.parentNode;
+  const employeeId = row.querySelector('td:first-child').textContent;
+  fetch(`http://localhost:3000/api/v1/employee/${employeeId}`,{
+    method:'DELETE'
+  }).then(()=> fetchEmployees())
+  .catch((error)=>console.error(error))
 }
 
 fetchEmployees()
