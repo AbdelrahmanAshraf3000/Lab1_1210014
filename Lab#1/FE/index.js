@@ -67,7 +67,7 @@ function deleteEmployee (){
   // get id
   // send id to BE
   // call fetchEmployees
-  const cellDelete = event.target.closet('td');
+  const cellDelete = event.target.closest('td');
   const row = cellDelete.parentNode;
   const employeeId = row.querySelector('td:first-child').textContent;
   fetch(`http://localhost:3000/api/v1/employee/${employeeId}`,{
