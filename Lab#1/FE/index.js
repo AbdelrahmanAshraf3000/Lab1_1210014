@@ -45,7 +45,7 @@ deleteBtn.addEventListener('click',(event)=>
 });
 
 // TODO
-function createEmployee (){
+function createEmployee (event){
   // get data from input field
   // send data to BE
   // call fetchEmployees
@@ -58,8 +58,11 @@ function createEmployee (){
       'Content-Type':'application/json'
     },
     body:JSON.stringify({id,name})
-  }).then(()=> fetchEmployees())
-  .catch((error)=>console.error(error))
+  }).then(()=> {fetchEmployees();
+    document.getElementById('id').value = '';
+    document.getElementById('name').value = '';
+  }).catch((error)=>console.error(error))
+  location.reload();
 }
 
 // TODO
@@ -74,6 +77,8 @@ function deleteEmployee (){
     method:'DELETE'
   }).then(()=> fetchEmployees())
   .catch((error)=>console.error(error))
+  location.reload();
+
 }
 
 fetchEmployees()
